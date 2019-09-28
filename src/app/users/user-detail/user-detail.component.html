@@ -1,0 +1,25 @@
+<section>
+  <button type="button" routerLink="..">
+    Back to Users List
+  </button>
+
+  <div *ngIf="user$ | async as user" style="margin-top: 1rem;">
+    <section style="display: flex; align-items: center;">
+      <img
+        [src]="user.picture.large"
+        alt="Avatar"
+        style="border-radius: 50%;"
+        height="128"
+        width="128"
+      />
+      <div style="margin-left: 1rem;">
+        <p style="font-weight: 700; font-size: 1.5rem;">
+          {{user.name.title}} {{user.name.first}} {{user.name.last}}
+        </p>
+        <p>{{user.email}}</p>
+        <p>{{user.cell}}</p>
+      </div>
+    </section>
+    <pre>{{user.location | json}}</pre>
+  </div>
+</section>

@@ -1,1 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~ag-grid-community/dist/styles/ag-grid.css';
+@import '~ag-grid-community/dist/styles/ag-theme-balham.css';
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  background-color: #fcfff3;
+  overflow: hidden;
+}
+
+.ag-cell {
+  user-select: initial;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  -webkit-user-select: text;
+}
+
+.ag-row .ag-cell {
+  display: flex;
+  align-items: center;
+}
+.ag-theme-balham .ag-numeric-cell {
+  justify-content: flex-end;
+}
+.ag-theme-balham {
+  font-size: 14px !important;
+}
+
+.ag-theme-balham .ag-header {
+  font-size: 16px !important;
+  font-weight: bold;
+  color: #000000;
+}
