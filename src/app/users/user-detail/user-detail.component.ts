@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  AfterViewInit
+} from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { UsersService, User } from 'src/app/shared';
 import { Observable } from 'rxjs';
@@ -9,8 +15,9 @@ import { switchMap } from 'rxjs/operators';
   templateUrl: './user-detail.component.html',
   styleUrls: ['./user-detail.component.css']
 })
-export class UserDetailComponent implements OnInit {
+export class UserDetailComponent implements OnInit, AfterViewInit {
   user$: Observable<User>;
+  @ViewChild('btn') btn: ElementRef;
   constructor(private route: ActivatedRoute, private svc: UsersService) {}
 
   ngOnInit() {
@@ -22,5 +29,9 @@ export class UserDetailComponent implements OnInit {
         return this.svc.getUser(params.get('id'));
       })
     );
+  }
+
+  ngAfterViewInit() {
+    this.btn.nativeElement.focus();
   }
 }
