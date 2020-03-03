@@ -1,7 +1,10 @@
+<h1>
+  Filters will be retained when you navigate to another page
+</h1>
 <section>
-  <button type="button" routerLink=".." #btn>
+  <a class="button" routerLink=".." [queryParams]="filtersParams" #btn>
     Back to Users List
-  </button>
+  </a>
 
   <div *ngIf="user$ | async as user" style="margin-top: 1rem;">
     <section style="display: flex; align-items: center;">
@@ -14,12 +17,12 @@
       />
       <div style="margin-left: 1rem;">
         <p style="font-weight: 700; font-size: 1.5rem;">
-          {{user.name.title}} {{user.name.first}} {{user.name.last}}
+          {{ user.name.title }} {{ user.name.first }} {{ user.name.last }}
         </p>
-        <p>{{user.email}}</p>
-        <p>{{user.cell}}</p>
+        <p>{{ user.email }}</p>
+        <p>{{ user.cell }}</p>
       </div>
     </section>
-    <pre>{{user.location | json}}</pre>
+    <pre>{{ user.location | json }}</pre>
   </div>
 </section>

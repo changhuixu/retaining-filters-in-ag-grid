@@ -1,10 +1,17 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { GridApi, GridOptions, ColumnApi } from 'ag-grid-community';
+import { ActivatedRoute, Router } from '@angular/router';
+import {
+  GridApi,
+  GridOptions,
+  ColumnApi,
+  FilterChangedEvent
+} from 'ag-grid-community';
 import { AgGridColumn } from 'ag-grid-angular';
 import {
   UserDetailButtonRendererComponent,
   UsersService
 } from 'src/app/shared';
+import { UsersGridFilterService } from '../services/users-grid-filter.service';
 
 @Component({
   selector: 'app-users-list',
@@ -51,6 +58,7 @@ export class UsersListComponent implements OnInit {
       }
     ] as AgGridColumn[],
     getRowNodeId: row => row.uuid,
+    onFilterChanged: event => this.filterChanged(event),
     suppressDragLeaveHidesColumns: true,
     animateRows: true,
     rowHeight: 34,
@@ -97,12 +105,43 @@ export class UsersListComponent implements OnInit {
   };
   rowData: any;
 
-  constructor(private readonly svc: UsersService) {}
+  constructor(
+    private readonly svc: UsersService,
+    private readonly filterService: UsersGridFilterService,
+    private readonly route: ActivatedRoute,
+    private readonly router: Router
+  ) {}
 
   ngOnInit() {
     this.svc.getAllUsers().subscribe(x => {
       this.rowData = x;
     });
+  }
+
+  filterChanged(event: FilterChangedEvent) {
+    const filterModel = event.api.getFilterModel();
+    this.filterService.persistFilters(filterModel);
+    const params = this.filterService.convertFilterToQueryParams();
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: params,
+      queryParamsHandling: 'merge'
+    });
+  }
+
+  clearAllFilters() {
+    this.gridApi.setFilterModel(null);
+  }
+
+  onGridReady(params: { api: GridApi; columnApi: ColumnApi; type: string }) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+    this.autoSizeAll(); // will resize all visible columns
+    this.gridApi.sizeColumnsToFit(); // will resize all columns to fit visible.
+    const filters = this.filterService.getFiltersFromQueryParams(
+      this.route.snapshot.queryParams
+    );
+    filters && this.gridApi.setFilterModel(filters);
   }
 
   @HostListener('window:resize')
@@ -112,17 +151,9 @@ export class UsersListComponent implements OnInit {
     }
   }
 
-  onGridReady(params: { api: GridApi; columnApi: ColumnApi; type: string }) {
-    this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    this.autoSizeAll(); // will resize all visible columns
-    this.gridApi.sizeColumnsToFit(); // will resize all columns to fit visible.
-  }
   private autoSizeAll() {
     const allColumnIds = [];
-    this.gridColumnApi.getAllColumns().forEach(function(column) {
-      allColumnIds.push(column.colId);
-    });
+    this.gridColumnApi.getAllColumns().forEach(c => allColumnIds.push(c.colId));
     this.gridColumnApi.autoSizeColumns(allColumnIds);
   }
 }

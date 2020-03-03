@@ -1,5 +1,11 @@
+<h1 style="margin-bottom: auto;">
+  Filters will be retained when you navigate to another page
+</h1>
+<div class="grid-interaction">
+  <button type="button" (click)="clearAllFilters()">Clear All Filters</button>
+</div>
 <ag-grid-angular
-  style="width: 100%;"
+  style="height: 100%;"
   class="ag-theme-balham"
   [rowData]="rowData"
   [gridOptions]="gridOptions"

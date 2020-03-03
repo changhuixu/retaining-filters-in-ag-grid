@@ -11,6 +11,13 @@ body {
   overflow: hidden;
 }
 
+.ag-body-viewport {
+  user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  -webkit-user-select: text;
+}
+
 .ag-cell {
   user-select: initial;
   -moz-user-select: text;
