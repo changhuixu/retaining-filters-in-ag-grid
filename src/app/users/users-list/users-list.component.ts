@@ -27,7 +27,7 @@ export class UsersListComponent implements OnInit {
         cellRendererFramework: UserDetailButtonRendererComponent
       },
       {
-        headerName: 'UserName',
+        headerName: 'User Name',
         field: 'username',
         minWidth: 150
       },
@@ -43,7 +43,7 @@ export class UsersListComponent implements OnInit {
       { headerName: 'Gender', field: 'gender', width: 150, minWidth: 150 },
       {
         headerName: 'Seniority',
-        field: 'registeredYear',
+        field: 'seniority',
         width: 120,
         minWidth: 120,
         type: 'numericColumn',

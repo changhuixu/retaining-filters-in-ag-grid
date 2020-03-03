@@ -5,5 +5,5 @@ export interface UserDto {
   last: string;
   dob: Date;
   gender: string;
-  registeredYear: number;
+  seniority: number;
 }

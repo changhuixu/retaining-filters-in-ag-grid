@@ -28,7 +28,7 @@ export class UsersService {
       last: x.name.last,
       dob: x.dob.date,
       gender: x.gender,
-      registeredYear: x.registered.age
+      seniority: x.registered.age
     } as UserDto;
   }
 }
