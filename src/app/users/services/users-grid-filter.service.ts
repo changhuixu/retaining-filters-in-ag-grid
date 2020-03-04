@@ -14,7 +14,7 @@ interface UsersGridFilters {
   seniority?: NumberFilterModel | ICombinedSimpleModel<NumberFilterModel>;
 }
 
-interface UsersGridFiltersParams {
+export interface UsersGridFiltersParams {
   username?: string;
   name?: string;
   dob?: string;

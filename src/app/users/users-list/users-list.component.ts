@@ -19,7 +19,6 @@ import { UsersGridFilterService } from '../services/users-grid-filter.service';
   styleUrls: ['./users-list.component.css']
 })
 export class UsersListComponent implements OnInit {
-  columnDefs = [];
   private gridApi: GridApi;
   private gridColumnApi;
   gridOptions = <GridOptions>{

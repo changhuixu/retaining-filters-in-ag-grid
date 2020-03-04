@@ -9,7 +9,10 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { UsersService, User } from 'src/app/shared';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { UsersGridFilterService } from '../services/users-grid-filter.service';
+import {
+  UsersGridFilterService,
+  UsersGridFiltersParams
+} from '../services/users-grid-filter.service';
 
 @Component({
   selector: 'app-user-detail',
@@ -19,7 +22,7 @@ import { UsersGridFilterService } from '../services/users-grid-filter.service';
 export class UserDetailComponent implements OnInit, AfterViewInit {
   user$: Observable<User>;
   @ViewChild('btn') btn: ElementRef;
-  filtersParams: any;
+  filtersParams: UsersGridFiltersParams;
   constructor(
     private route: ActivatedRoute,
     private svc: UsersService,
