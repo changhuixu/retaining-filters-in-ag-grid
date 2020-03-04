@@ -28,7 +28,7 @@ export class UsersListComponent implements OnInit {
         headerName: '',
         field: 'uuid',
         width: 100,
-        minWidth: 80,
+        minWidth: 70,
         filter: false,
         suppressMenu: true,
         cellRendererFramework: UserDetailButtonRendererComponent
@@ -38,8 +38,13 @@ export class UsersListComponent implements OnInit {
         field: 'username',
         minWidth: 150
       },
-      { headerName: 'First', field: 'first', width: 200, minWidth: 200 },
-      { headerName: 'Last', field: 'last', width: 200, minWidth: 200 },
+      {
+        headerName: 'Display Name',
+        colId: 'name',
+        valueGetter: params => params.data.first + ' ' + params.data.last,
+        width: 200,
+        minWidth: 160
+      },
       {
         headerName: 'DOB',
         field: 'dob',
@@ -47,7 +52,7 @@ export class UsersListComponent implements OnInit {
         minWidth: 150,
         type: 'dateColumn'
       },
-      { headerName: 'Gender', field: 'gender', width: 150, minWidth: 150 },
+      { headerName: 'Gender', field: 'gender', width: 150, minWidth: 120 },
       {
         headerName: 'Seniority',
         field: 'seniority',
