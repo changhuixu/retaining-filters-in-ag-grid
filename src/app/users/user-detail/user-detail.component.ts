@@ -28,7 +28,7 @@ export class UserDetailComponent implements OnInit, AfterViewInit {
     private svc: UsersService,
     filterService: UsersGridFilterService
   ) {
-    this.filtersParams = filterService.convertFilterToQueryParams();
+    this.filtersParams = filterService.getQueryParamsFromFilters();
   }
 
   ngOnInit() {

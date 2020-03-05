@@ -46,7 +46,7 @@ export class UsersGridFilterService {
     };
   }
 
-  convertFilterToQueryParams(): UsersGridFiltersParams {
+  getQueryParamsFromFilters(): UsersGridFiltersParams {
     if (!this.filters || !Object.keys(this.filters).length) {
       return {
         username: null,

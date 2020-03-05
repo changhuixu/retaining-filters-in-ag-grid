@@ -125,7 +125,7 @@ export class UsersListComponent implements OnInit {
   filterChanged(event: FilterChangedEvent) {
     const filterModel = event.api.getFilterModel();
     this.filterService.persistFilters(filterModel);
-    const params = this.filterService.convertFilterToQueryParams();
+    const params = this.filterService.getQueryParamsFromFilters();
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: params,
