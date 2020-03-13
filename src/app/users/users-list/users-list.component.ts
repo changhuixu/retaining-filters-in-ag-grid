@@ -12,6 +12,7 @@ import {
   UsersService
 } from 'src/app/shared';
 import { UsersGridFilterService } from '../services/users-grid-filter.service';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-users-list',
@@ -108,6 +109,7 @@ export class UsersListComponent implements OnInit {
     }
   };
   rowData: any;
+  loading = false;
 
   constructor(
     private readonly svc: UsersService,
@@ -117,9 +119,13 @@ export class UsersListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.svc.getAllUsers().subscribe(x => {
-      this.rowData = x;
-    });
+    this.loading = true;
+    this.svc
+      .getAllUsers()
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe(x => {
+        this.rowData = x;
+      });
   }
 
   filterChanged(event: FilterChangedEvent) {

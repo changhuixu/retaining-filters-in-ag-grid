@@ -35,6 +35,9 @@ MIT
 @angular/router
 MIT
 
+@uiowa/spinner
+MIT
+
 ag-grid-angular
 MIT
 The MIT License

@@ -1,14 +1,21 @@
-<h1 style="margin-bottom: auto;">
+<h1 style="margin-bottom: 0;">
   Filters will be retained when you navigate to another page
 </h1>
-<div class="grid-interaction">
-  <button type="button" (click)="clearAllFilters()">Clear All Filters</button>
+<div *ngIf="loading; else grid">
+  <div style="display: flex; width: 100%; justify-content: center;">
+    <uiowa-ring></uiowa-ring>
+  </div>
 </div>
-<ag-grid-angular
-  style="height: 100%;"
-  class="ag-theme-balham"
-  [rowData]="rowData"
-  [gridOptions]="gridOptions"
-  (gridReady)="onGridReady($event)"
->
-</ag-grid-angular>
+<ng-template #grid>
+  <div class="grid-interaction">
+    <button type="button" (click)="clearAllFilters()">Clear All Filters</button>
+  </div>
+  <ag-grid-angular
+    style="height: 100%;"
+    class="ag-theme-balham"
+    [rowData]="rowData"
+    [gridOptions]="gridOptions"
+    (gridReady)="onGridReady($event)"
+  >
+  </ag-grid-angular>
+</ng-template>

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AgGridModule } from 'ag-grid-angular';
 import { RouterModule } from '@angular/router';
+import { SpinnerModule } from '@uiowa/spinner';
 
 import { UserDetailButtonRendererComponent } from './components/user-detail-button-renderer/user-detail-button-renderer.component';
 
@@ -9,10 +10,16 @@ import { UserDetailButtonRendererComponent } from './components/user-detail-butt
   imports: [
     CommonModule,
     RouterModule,
+    SpinnerModule,
     AgGridModule.withComponents([UserDetailButtonRendererComponent])
   ],
   declarations: [UserDetailButtonRendererComponent],
   entryComponents: [UserDetailButtonRendererComponent],
-  exports: [CommonModule, AgGridModule, UserDetailButtonRendererComponent]
+  exports: [
+    CommonModule,
+    SpinnerModule,
+    AgGridModule,
+    UserDetailButtonRendererComponent
+  ]
 })
 export class SharedModule {}

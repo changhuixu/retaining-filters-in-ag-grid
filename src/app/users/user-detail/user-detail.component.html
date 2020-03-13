@@ -6,7 +6,7 @@
     Back to Users List
   </a>
 
-  <div *ngIf="user$ | async as user" style="margin-top: 1rem;">
+  <div *ngIf="user$ | async as user; else loading" style="margin-top: 1rem;">
     <section style="display: flex; align-items: center;">
       <img
         [src]="user.picture.large"
@@ -25,4 +25,10 @@
     </section>
     <pre>{{ user.location | json }}</pre>
   </div>
+
+  <ng-template #loading>
+    <div style="display: flex; width: 100%; justify-content: center;">
+      <uiowa-ring></uiowa-ring>
+    </div>
+  </ng-template>
 </section>
