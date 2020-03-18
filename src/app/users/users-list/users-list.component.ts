@@ -66,7 +66,6 @@ export class UsersListComponent implements OnInit {
     onFilterChanged: event => this.filterChanged(event),
     suppressDragLeaveHidesColumns: true,
     animateRows: true,
-    rowHeight: 34,
     floatingFilter: true,
     pagination: true,
     paginationAutoPageSize: true,

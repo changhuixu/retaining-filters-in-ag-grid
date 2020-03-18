@@ -22,8 +22,8 @@
     "@angular/platform-browser-dynamic": "~9.0.6",
     "@angular/router": "~9.0.6",
     "@uiowa/spinner": "^6.0.2",
-    "ag-grid-angular": "^22.1.1",
-    "ag-grid-community": "^22.1.1",
+    "ag-grid-angular": "^23.0.0",
+    "ag-grid-community": "^23.0.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~ag-grid-community/dist/styles/ag-grid.css';
-@import '~ag-grid-community/dist/styles/ag-theme-balham.css';
+@import '~ag-grid-community/dist/styles/ag-theme-alpine.css';
 
 html,
 body {
@@ -25,19 +25,6 @@ body {
   -webkit-user-select: text;
 }
 
-.ag-row .ag-cell {
-  display: flex;
-  align-items: center;
-}
-.ag-theme-balham .ag-numeric-cell {
-  justify-content: flex-end;
-}
-.ag-theme-balham {
-  font-size: 14px !important;
-}
-
-.ag-theme-balham .ag-header {
+.ag-theme-alpine .ag-header {
   font-size: 16px !important;
-  font-weight: bold;
-  color: #000000;
 }
