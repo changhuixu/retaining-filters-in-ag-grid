@@ -4,12 +4,12 @@ import {
   GridApi,
   GridOptions,
   ColumnApi,
-  FilterChangedEvent
+  FilterChangedEvent,
 } from 'ag-grid-community';
 import { AgGridColumn } from 'ag-grid-angular';
 import {
   UserDetailButtonRendererComponent,
-  UsersService
+  UsersService,
 } from 'src/app/shared';
 import { UsersGridFilterService } from '../services/users-grid-filter.service';
 import { finalize } from 'rxjs/operators';
@@ -17,7 +17,7 @@ import { finalize } from 'rxjs/operators';
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
-  styleUrls: ['./users-list.component.css']
+  styleUrls: ['./users-list.component.css'],
 })
 export class UsersListComponent implements OnInit {
   private gridApi: GridApi;
@@ -31,26 +31,26 @@ export class UsersListComponent implements OnInit {
         minWidth: 70,
         filter: false,
         suppressMenu: true,
-        cellRendererFramework: UserDetailButtonRendererComponent
+        cellRendererFramework: UserDetailButtonRendererComponent,
       },
       {
         headerName: 'User Name',
         field: 'username',
-        minWidth: 150
+        minWidth: 150,
       },
       {
         headerName: 'Display Name',
         colId: 'name',
-        valueGetter: params => params.data.first + ' ' + params.data.last,
+        valueGetter: (params) => params.data.first + ' ' + params.data.last,
         width: 200,
-        minWidth: 160
+        minWidth: 160,
       },
       {
         headerName: 'DOB',
         field: 'dob',
         width: 150,
         minWidth: 150,
-        type: 'dateColumn'
+        type: 'dateColumn',
       },
       { headerName: 'Gender', field: 'gender', width: 150, minWidth: 120 },
       {
@@ -59,26 +59,26 @@ export class UsersListComponent implements OnInit {
         width: 120,
         minWidth: 120,
         type: 'numericColumn',
-        filter: 'agNumberColumnFilter'
-      }
+        filter: 'agNumberColumnFilter',
+      },
     ] as AgGridColumn[],
-    getRowNodeId: row => row.uuid,
-    onFilterChanged: event => this.filterChanged(event),
+    getRowNodeId: (row) => row.uuid,
+    onFilterChanged: (event) => this.filterChanged(event),
     suppressDragLeaveHidesColumns: true,
     animateRows: true,
-    floatingFilter: true,
     pagination: true,
     paginationAutoPageSize: true,
     cacheQuickFilter: true,
     defaultColDef: {
       sortable: true,
       filter: true,
-      resizable: true
+      floatingFilter: true,
+      resizable: true,
     },
     columnTypes: {
       dateColumn: {
         filter: 'agDateColumnFilter',
-        cellRenderer: cell => {
+        cellRenderer: (cell) => {
           let d = new Date(cell.value);
           return (
             (d.getMonth() > 8 ? d.getMonth() + 1 : '0' + (d.getMonth() + 1)) +
@@ -102,10 +102,10 @@ export class UsersListComponent implements OnInit {
             } else {
               return 0;
             }
-          }
-        }
-      }
-    }
+          },
+        },
+      },
+    },
   };
   rowData: any;
   loading = false;
@@ -122,7 +122,7 @@ export class UsersListComponent implements OnInit {
     this.svc
       .getAllUsers()
       .pipe(finalize(() => (this.loading = false)))
-      .subscribe(x => {
+      .subscribe((x) => {
         this.rowData = x;
       });
   }
@@ -134,7 +134,7 @@ export class UsersListComponent implements OnInit {
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: params,
-      queryParamsHandling: 'merge'
+      queryParamsHandling: 'merge',
     });
   }
 
@@ -162,7 +162,9 @@ export class UsersListComponent implements OnInit {
 
   private autoSizeAll() {
     const allColumnIds = [];
-    this.gridColumnApi.getAllColumns().forEach(c => allColumnIds.push(c.colId));
+    this.gridColumnApi
+      .getAllColumns()
+      .forEach((c) => allColumnIds.push(c.colId));
     this.gridColumnApi.autoSizeColumns(allColumnIds);
   }
 }
