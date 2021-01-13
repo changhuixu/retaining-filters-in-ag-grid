@@ -28,3 +28,12 @@ body {
 .ag-theme-alpine .ag-header {
   font-size: 16px !important;
 }
+
+.ag-theme-alpine .ag-ltr .ag-floating-filter-button {
+  margin-left: 4px !important;
+}
+.ag-theme-alpine .ag-header-cell,
+.ag-theme-alpine .ag-header-group-cell {
+  padding-left: 6px !important;
+  padding-right: 6px !important;
+}

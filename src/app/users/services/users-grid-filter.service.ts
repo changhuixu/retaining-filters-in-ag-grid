@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import {
   TextFilterModel,
   DateFilterModel,
-  NumberFilterModel
+  NumberFilterModel,
+  ICombinedSimpleModel,
 } from 'ag-grid-community';
-import { ICombinedSimpleModel } from 'ag-grid-community/dist/lib/filter/provided/simpleFilter';
 
 interface UsersGridFilters {
   username?: TextFilterModel | ICombinedSimpleModel<TextFilterModel>;
@@ -23,7 +23,7 @@ export interface UsersGridFiltersParams {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UsersGridFilterService {
   filters: UsersGridFilters;
@@ -42,7 +42,7 @@ export class UsersGridFilterService {
       name: JSON.parse(decodeURIComponent(params.name || null)),
       dob: JSON.parse(decodeURIComponent(params.dob || null)),
       gender: JSON.parse(decodeURIComponent(params.gender || null)),
-      seniority: JSON.parse(decodeURIComponent(params.seniority || null))
+      seniority: JSON.parse(decodeURIComponent(params.seniority || null)),
     };
   }
 
@@ -53,15 +53,19 @@ export class UsersGridFilterService {
         name: null,
         dob: null,
         gender: null,
-        seniority: null
+        seniority: null,
       };
     }
     return <UsersGridFiltersParams>{
-      username: encodeURIComponent(JSON.stringify(this.filters.username || null)),
+      username: encodeURIComponent(
+        JSON.stringify(this.filters.username || null)
+      ),
       name: encodeURIComponent(JSON.stringify(this.filters.name || null)),
       dob: encodeURIComponent(JSON.stringify(this.filters.dob || null)),
       gender: encodeURIComponent(JSON.stringify(this.filters.gender || null)),
-      seniority: encodeURIComponent(JSON.stringify(this.filters.seniority || null))
+      seniority: encodeURIComponent(
+        JSON.stringify(this.filters.seniority || null)
+      ),
     };
   }
 }
