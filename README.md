@@ -1,5 +1,7 @@
 # Retaining Filters in ag-Grid
 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/I3I63W4OK)
+
 ## [Demo](https://changhuixu.github.io/retaining-filters-in-ag-grid/)
 
 ## [Medium Blog Post](https://medium.com/javascript-in-plain-english/retaining-ag-grid-filters-using-query-parameters-55167be07a20)
@@ -19,3 +21,9 @@ In this blog post, we will implement an easy way to retain ag-Grid filters using
 ## Filters are retained using route query parameters
 
 ![filter retained](./filter-retained.gif)
+
+## License
+
+Feel free to use the code in this repository as it is under MIT license.
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/I3I63W4OK)
