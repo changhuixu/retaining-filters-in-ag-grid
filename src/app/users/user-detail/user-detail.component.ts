@@ -10,9 +10,9 @@ import { UsersService, User } from 'src/app/shared';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import {
-  UsersGridFilterService,
+  UsersGridService,
   UsersGridFiltersParams
-} from '../services/users-grid-filter.service';
+} from '../services/users-grid.service';
 
 @Component({
   selector: 'app-user-detail',
@@ -26,7 +26,7 @@ export class UserDetailComponent implements OnInit, AfterViewInit {
   constructor(
     private route: ActivatedRoute,
     private svc: UsersService,
-    filterService: UsersGridFilterService
+    filterService: UsersGridService
   ) {
     this.filtersParams = filterService.getQueryParamsFromFilters();
   }

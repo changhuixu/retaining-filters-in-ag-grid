@@ -5,13 +5,14 @@ import {
   GridOptions,
   ColumnApi,
   FilterChangedEvent,
+  PaginationChangedEvent,
 } from 'ag-grid-community';
 import { AgGridColumn } from 'ag-grid-angular';
 import {
   UserDetailButtonRendererComponent,
   UsersService,
 } from 'src/app/shared';
-import { UsersGridFilterService } from '../services/users-grid-filter.service';
+import { UsersGridService } from '../services/users-grid.service';
 import { finalize } from 'rxjs/operators';
 
 @Component({
@@ -21,7 +22,7 @@ import { finalize } from 'rxjs/operators';
 })
 export class UsersListComponent implements OnInit {
   private gridApi: GridApi;
-  private gridColumnApi;
+  private gridColumnApi: ColumnApi;
   gridOptions = <GridOptions>{
     columnDefs: [
       {
@@ -68,6 +69,7 @@ export class UsersListComponent implements OnInit {
     animateRows: true,
     pagination: true,
     paginationAutoPageSize: true,
+    onPaginationChanged: (event) => this.paginationChanged(event),
     cacheQuickFilter: true,
     defaultColDef: {
       sortable: true,
@@ -112,7 +114,7 @@ export class UsersListComponent implements OnInit {
 
   constructor(
     private readonly svc: UsersService,
-    private readonly filterService: UsersGridFilterService,
+    private readonly gridService: UsersGridService,
     private readonly route: ActivatedRoute,
     private readonly router: Router
   ) {}
@@ -129,8 +131,8 @@ export class UsersListComponent implements OnInit {
 
   filterChanged(event: FilterChangedEvent) {
     const filterModel = event.api.getFilterModel();
-    this.filterService.persistFilters(filterModel);
-    const params = this.filterService.getQueryParamsFromFilters();
+    this.gridService.persistFilters(filterModel);
+    const params = this.gridService.getQueryParamsFromFilters();
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: params,
@@ -141,16 +143,23 @@ export class UsersListComponent implements OnInit {
   clearAllFilters() {
     this.gridApi.setFilterModel(null);
   }
+  paginationChanged(event: PaginationChangedEvent) {
+    if (event.newPage) {
+      const n = event.api.paginationGetCurrentPage();
+      this.gridService.persistCurrentPageNumber(n);
+    }
+  }
 
   onGridReady(params: { api: GridApi; columnApi: ColumnApi; type: string }) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
     this.autoSizeAll(); // will resize all visible columns
     this.gridApi.sizeColumnsToFit(); // will resize all columns to fit visible.
-    const filters = this.filterService.getFiltersFromQueryParams(
+    const filters = this.gridService.getFiltersFromQueryParams(
       this.route.snapshot.queryParams
     );
     filters && this.gridApi.setFilterModel(filters);
+    this.gridApi.paginationGoToPage(this.gridService.currentPageNumber);
   }
 
   @HostListener('window:resize')
@@ -164,7 +173,7 @@ export class UsersListComponent implements OnInit {
     const allColumnIds = [];
     this.gridColumnApi
       .getAllColumns()
-      .forEach((c) => allColumnIds.push(c.colId));
+      .forEach((c) => allColumnIds.push(c.getColId()));
     this.gridColumnApi.autoSizeColumns(allColumnIds);
   }
 }

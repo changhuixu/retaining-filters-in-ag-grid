@@ -25,9 +25,15 @@ export interface UsersGridFiltersParams {
 @Injectable({
   providedIn: 'root',
 })
-export class UsersGridFilterService {
+export class UsersGridService {
   filters: UsersGridFilters;
+  currentPageNumber: number;
+
   constructor() {}
+
+  persistCurrentPageNumber(n: number) {
+    this.currentPageNumber = n;
+  }
 
   persistFilters(filters: UsersGridFilters) {
     this.filters = filters;
