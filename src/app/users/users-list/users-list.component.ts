@@ -8,10 +8,7 @@ import {
   PaginationChangedEvent,
 } from 'ag-grid-community';
 import { AgGridColumn } from 'ag-grid-angular';
-import {
-  UserDetailButtonRendererComponent,
-  UsersService,
-} from 'src/app/shared';
+import { UserDetailButtonRendererComponent, UsersService } from '../../shared';
 import { UsersGridService } from '../services/users-grid.service';
 import { finalize } from 'rxjs/operators';
 

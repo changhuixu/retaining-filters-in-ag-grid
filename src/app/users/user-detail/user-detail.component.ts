@@ -3,21 +3,21 @@ import {
   OnInit,
   ViewChild,
   ElementRef,
-  AfterViewInit
+  AfterViewInit,
 } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { UsersService, User } from 'src/app/shared';
+import { UsersService, User } from '../../shared';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import {
   UsersGridService,
-  UsersGridFiltersParams
+  UsersGridFiltersParams,
 } from '../services/users-grid.service';
 
 @Component({
   selector: 'app-user-detail',
   templateUrl: './user-detail.component.html',
-  styleUrls: ['./user-detail.component.css']
+  styleUrls: ['./user-detail.component.css'],
 })
 export class UserDetailComponent implements OnInit, AfterViewInit {
   user$: Observable<User>;
