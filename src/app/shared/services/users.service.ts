@@ -5,7 +5,7 @@ import { UserDto, User } from '../models';
 import { map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UsersService {
   constructor(private readonly httpClient: HttpClient) {}
@@ -14,10 +14,10 @@ export class UsersService {
     return this.httpClient.get<UserDto[]>('assets/userdtos.json');
   }
 
-  getUser(uuid: string): Observable<User> {
+  getUser(uuid: string): Observable<User | null> {
     return this.httpClient
       .get<User[]>('assets/users.json')
-      .pipe(map(x => x.find(u => u.login.uuid === uuid)));
+      .pipe(map((x) => x.find((u) => u.login.uuid === uuid) ?? null));
   }
 
   private mapToUserDto(x: User): UserDto {
@@ -28,7 +28,7 @@ export class UsersService {
       last: x.name.last,
       dob: x.dob.date,
       gender: x.gender,
-      seniority: x.registered.age
+      seniority: x.registered.age,
     } as UserDto;
   }
 }

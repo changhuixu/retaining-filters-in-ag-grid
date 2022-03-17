@@ -18,8 +18,8 @@ import { finalize } from 'rxjs/operators';
   styleUrls: ['./users-list.component.css'],
 })
 export class UsersListComponent implements OnInit {
-  private gridApi: GridApi;
-  private gridColumnApi: ColumnApi;
+  private gridApi!: GridApi;
+  private gridColumnApi!: ColumnApi;
   gridOptions = <GridOptions>{
     columnDefs: [
       {
@@ -29,7 +29,7 @@ export class UsersListComponent implements OnInit {
         minWidth: 70,
         filter: false,
         suppressMenu: true,
-        cellRendererFramework: UserDetailButtonRendererComponent,
+        cellRenderer: UserDetailButtonRendererComponent,
       },
       {
         headerName: 'User Name',
@@ -60,7 +60,7 @@ export class UsersListComponent implements OnInit {
         filter: 'agNumberColumnFilter',
       },
     ] as AgGridColumn[],
-    getRowNodeId: (row) => row.uuid,
+    getRowId: (row) => row.data.uuid,
     onFilterChanged: (event) => this.filterChanged(event),
     suppressDragLeaveHidesColumns: true,
     animateRows: true,
@@ -77,7 +77,7 @@ export class UsersListComponent implements OnInit {
     columnTypes: {
       dateColumn: {
         filter: 'agDateColumnFilter',
-        cellRenderer: (cell) => {
+        cellRenderer: (cell: any) => {
           let d = new Date(cell.value);
           return (
             (d.getMonth() > 8 ? d.getMonth() + 1 : '0' + (d.getMonth() + 1)) +
@@ -167,10 +167,10 @@ export class UsersListComponent implements OnInit {
   }
 
   private autoSizeAll() {
-    const allColumnIds = [];
+    const allColumnIds: any[] = [];
     this.gridColumnApi
-      .getAllColumns()
-      .forEach((c) => allColumnIds.push(c.getColId()));
+      ?.getAllColumns()
+      ?.forEach((c) => allColumnIds.push(c.getColId()));
     this.gridColumnApi.autoSizeColumns(allColumnIds);
   }
 }

@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { UsersService, User } from '../../shared';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import {
   UsersGridService,
@@ -20,8 +20,8 @@ import {
   styleUrls: ['./user-detail.component.css'],
 })
 export class UserDetailComponent implements OnInit, AfterViewInit {
-  user$: Observable<User>;
-  @ViewChild('btn') btn: ElementRef;
+  user$!: Observable<User | null>;
+  @ViewChild('btn') btn!: ElementRef;
   filtersParams: UsersGridFiltersParams;
   constructor(
     private route: ActivatedRoute,
@@ -35,9 +35,9 @@ export class UserDetailComponent implements OnInit, AfterViewInit {
     this.user$ = this.route.paramMap.pipe(
       switchMap((params: ParamMap) => {
         if (Object.keys(params.keys).length === 0) {
-          return null;
+          return of(null);
         }
-        return this.svc.getUser(params.get('id'));
+        return this.svc.getUser(params.get('id') ?? '');
       })
     );
   }

@@ -6,10 +6,10 @@
     "retaining-filters-in-ag-grid": {
       "projectType": "application",
       "schematics": {
-        "@schematics/angular:class": {
+        "@schematics/angular:component": {
           "skipTests": true
         },
-        "@schematics/angular:component": {
+        "@schematics/angular:class": {
           "skipTests": true
         },
         "@schematics/angular:directive": {
@@ -18,13 +18,20 @@
         "@schematics/angular:guard": {
           "skipTests": true
         },
-        "@schematics/angular:module": {
+        "@schematics/angular:interceptor": {
+          "skipTests": true
         },
         "@schematics/angular:pipe": {
           "skipTests": true
         },
+        "@schematics/angular:resolver": {
+          "skipTests": true
+        },
         "@schematics/angular:service": {
           "skipTests": true
+        },
+        "@schematics/angular:application": {
+          "strict": true
         }
       },
       "root": "",
@@ -46,55 +53,52 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [],
-            "vendorChunk": true,
-            "extractLicenses": false,
-            "buildOptimizer": false,
-            "sourceMap": true,
-            "optimization": false,
-            "namedChunks": true
+            "scripts": []
           },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
-                }
-              ]
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
             }
           },
-          "defaultConfiguration": ""
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "retaining-filters-in-ag-grid:build"
-          },
           "configurations": {
             "production": {
               "browserTarget": "retaining-filters-in-ag-grid:build:production"
+            },
+            "development": {
+              "browserTarget": "retaining-filters-in-ag-grid:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",

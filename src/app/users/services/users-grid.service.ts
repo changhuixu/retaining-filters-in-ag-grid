@@ -15,19 +15,19 @@ interface UsersGridFilters {
 }
 
 export interface UsersGridFiltersParams {
-  username?: string;
-  name?: string;
-  dob?: string;
-  gender?: string;
-  seniority?: string;
+  username?: string | null;
+  name?: string | null;
+  dob?: string | null;
+  gender?: string | null;
+  seniority?: string | null;
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsersGridService {
-  filters: UsersGridFilters;
-  currentPageNumber: number;
+  filters: UsersGridFilters | null = null;
+  currentPageNumber: number = 0;
 
   constructor() {}
 
@@ -39,16 +39,18 @@ export class UsersGridService {
     this.filters = filters;
   }
 
-  getFiltersFromQueryParams(params: UsersGridFiltersParams): UsersGridFilters {
+  getFiltersFromQueryParams(
+    params: UsersGridFiltersParams
+  ): UsersGridFilters | null {
     if (!params || !Object.keys(params).length) {
       return null;
     }
     return {
-      username: JSON.parse(decodeURIComponent(params.username || null)),
-      name: JSON.parse(decodeURIComponent(params.name || null)),
-      dob: JSON.parse(decodeURIComponent(params.dob || null)),
-      gender: JSON.parse(decodeURIComponent(params.gender || null)),
-      seniority: JSON.parse(decodeURIComponent(params.seniority || null)),
+      username: JSON.parse(decodeURIComponent(params.username ?? '')),
+      name: JSON.parse(decodeURIComponent(params.name ?? '')),
+      dob: JSON.parse(decodeURIComponent(params.dob ?? '')),
+      gender: JSON.parse(decodeURIComponent(params.gender ?? '')),
+      seniority: JSON.parse(decodeURIComponent(params.seniority ?? '')),
     };
   }
 
