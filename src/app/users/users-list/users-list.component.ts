@@ -169,7 +169,7 @@ export class UsersListComponent implements OnInit {
   private autoSizeAll() {
     const allColumnIds: any[] = [];
     this.gridColumnApi
-      ?.getAllColumns()
+      ?.getColumns()
       ?.forEach((c) => allColumnIds.push(c.getColId()));
     this.gridColumnApi.autoSizeColumns(allColumnIds);
   }

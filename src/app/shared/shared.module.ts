@@ -7,19 +7,13 @@ import { SpinnerModule } from '@uiowa/spinner';
 import { UserDetailButtonRendererComponent } from './components/user-detail-button-renderer/user-detail-button-renderer.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule,
-    SpinnerModule,
-    AgGridModule.withComponents([UserDetailButtonRendererComponent])
-  ],
+  imports: [CommonModule, RouterModule, SpinnerModule, AgGridModule],
   declarations: [UserDetailButtonRendererComponent],
-  entryComponents: [UserDetailButtonRendererComponent],
   exports: [
     CommonModule,
     SpinnerModule,
     AgGridModule,
-    UserDetailButtonRendererComponent
-  ]
+    UserDetailButtonRendererComponent,
+  ],
 })
 export class SharedModule {}
