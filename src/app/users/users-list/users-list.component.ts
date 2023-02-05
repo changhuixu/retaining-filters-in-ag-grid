@@ -7,7 +7,6 @@ import {
   FilterChangedEvent,
   PaginationChangedEvent,
 } from 'ag-grid-community';
-import { AgGridColumn } from 'ag-grid-angular';
 import {
   dateColumnDef,
   UserDetailButtonRendererComponent,
@@ -43,7 +42,8 @@ export class UsersListComponent implements OnInit {
       {
         headerName: 'Display Name',
         colId: 'name',
-        valueGetter: (params) => params.data.first + ' ' + params.data.last,
+        valueGetter: (params: any) =>
+          params.data.first + ' ' + params.data.last,
         width: 200,
         minWidth: 160,
       },
@@ -63,7 +63,7 @@ export class UsersListComponent implements OnInit {
         type: 'numericColumn',
         filter: 'agNumberColumnFilter',
       },
-    ] as AgGridColumn[],
+    ],
     getRowId: (row) => row.data.uuid,
     onFilterChanged: (event) => this.filterChanged(event),
     suppressDragLeaveHidesColumns: true,
