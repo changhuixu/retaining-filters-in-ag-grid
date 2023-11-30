@@ -3,9 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {
   GridApi,
   GridOptions,
-  ColumnApi,
   FilterChangedEvent,
   PaginationChangedEvent,
+  GridReadyEvent,
 } from 'ag-grid-community';
 import {
   dateColumnDef,
@@ -22,7 +22,6 @@ import { finalize } from 'rxjs/operators';
 })
 export class UsersListComponent implements OnInit {
   private gridApi!: GridApi;
-  private gridColumnApi!: ColumnApi;
   gridOptions = <GridOptions>{
     columnDefs: [
       {
@@ -123,30 +122,28 @@ export class UsersListComponent implements OnInit {
     }
   }
 
-  onGridReady(params: { api: GridApi; columnApi: ColumnApi; type: string }) {
-    this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
+  onGridReady(event: GridReadyEvent) {
+    this.gridApi = event.api;
     this.autoSizeAll(); // will resize all visible columns
     this.gridApi.sizeColumnsToFit(); // will resize all columns to fit visible.
     const filters = this.gridService.getFiltersFromQueryParams(
       this.route.snapshot.queryParams
     );
     filters && this.gridApi.setFilterModel(filters);
-    this.gridApi.paginationGoToPage(this.gridService.currentPageNumber);
+    setTimeout(
+      () => this.gridApi.paginationGoToPage(this.gridService.currentPageNumber),
+      100
+    ); // https://github.com/ag-grid/ag-grid/issues/6343
   }
 
   @HostListener('window:resize')
   onResize() {
-    if (this.gridApi) {
-      this.gridApi.sizeColumnsToFit();
-    }
+    this.gridApi.sizeColumnsToFit();
   }
 
   private autoSizeAll() {
     const allColumnIds: any[] = [];
-    this.gridColumnApi
-      ?.getColumns()
-      ?.forEach((c) => allColumnIds.push(c.getColId()));
-    this.gridColumnApi.autoSizeColumns(allColumnIds);
+    this.gridApi.getColumns()?.forEach((c) => allColumnIds.push(c.getColId()));
+    this.gridApi.autoSizeColumns(allColumnIds);
   }
 }

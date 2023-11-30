@@ -1,22 +1,15 @@
 export const dateColumnDef = {
   filter: 'agDateColumnFilter',
-  cellRenderer: (cell: any) => {
-    let d = new Date(cell.value);
-    return (
-      (d.getMonth() > 8 ? d.getMonth() + 1 : '0' + (d.getMonth() + 1)) +
-      '/' +
-      (d.getDate() > 9 ? d.getDate() : '0' + d.getDate()) +
-      '/' +
-      d.getFullYear()
-    );
-  },
+  cellRenderer: (cell: any) =>
+    new Date(cell.value).toLocaleDateString('en-us', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    }),
   filterParams: {
     comparator: (filterLocalDateAtMidnight: Date, cellValue: string) => {
-      var dateParts = cellValue.split('-');
-      var year = Number(dateParts[0]);
-      var month = Number(dateParts[1]) - 1;
-      var day = Number(dateParts[2].slice(0, 2));
-      var cellDate = new Date(year, month, day);
+      var d = new Date(cellValue);
+      var cellDate = new Date(d.getFullYear(), d.getMonth(), d.getDate());
       if (cellDate < filterLocalDateAtMidnight) {
         return -1;
       } else if (cellDate > filterLocalDateAtMidnight) {
