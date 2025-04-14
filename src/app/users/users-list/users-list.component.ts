@@ -19,6 +19,7 @@ import { finalize } from 'rxjs/operators';
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
   styleUrls: ['./users-list.component.css'],
+  standalone: false,
 })
 export class UsersListComponent implements OnInit {
   private gridApi!: GridApi;
@@ -30,7 +31,7 @@ export class UsersListComponent implements OnInit {
         width: 100,
         minWidth: 70,
         filter: false,
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
         cellRenderer: UserDetailButtonRendererComponent,
       },
       {
@@ -124,7 +125,7 @@ export class UsersListComponent implements OnInit {
 
   onGridReady(event: GridReadyEvent) {
     this.gridApi = event.api;
-    this.autoSizeAll(); // will resize all visible columns
+    this.gridApi.autoSizeAllColumns(); // will resize all visible columns
     this.gridApi.sizeColumnsToFit(); // will resize all columns to fit visible.
     const filters = this.gridService.getFiltersFromQueryParams(
       this.route.snapshot.queryParams
@@ -138,12 +139,6 @@ export class UsersListComponent implements OnInit {
 
   @HostListener('window:resize')
   onResize() {
-    this.gridApi.sizeColumnsToFit();
-  }
-
-  private autoSizeAll() {
-    const allColumnIds: any[] = [];
-    this.gridApi.getColumns()?.forEach((c) => allColumnIds.push(c.getColId()));
-    this.gridApi.autoSizeColumns(allColumnIds);
+    this.gridApi?.sizeColumnsToFit();
   }
 }

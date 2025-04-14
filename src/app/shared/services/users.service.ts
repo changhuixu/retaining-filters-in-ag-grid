@@ -11,12 +11,12 @@ export class UsersService {
   constructor(private readonly httpClient: HttpClient) {}
 
   getAllUsers(): Observable<UserDto[]> {
-    return this.httpClient.get<UserDto[]>('assets/userdtos.json');
+    return this.httpClient.get<UserDto[]>('userdtos.json');
   }
 
   getUser(uuid: string): Observable<User | null> {
     return this.httpClient
-      .get<User[]>('assets/users.json')
+      .get<User[]>('users.json')
       .pipe(map((x) => x.find((u) => u.login.uuid === uuid) ?? null));
   }
 

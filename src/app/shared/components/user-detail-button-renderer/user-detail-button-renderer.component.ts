@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 
 @Component({
-  template: `
+    template: `
     <a [routerLink]="uuid" title="view details">
       Details
     </a>
-  `
+  `,
+    standalone: false
 })
 export class UserDetailButtonRendererComponent
   implements ICellRendererAngularComp {

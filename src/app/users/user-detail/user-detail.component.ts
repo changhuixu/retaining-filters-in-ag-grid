@@ -18,6 +18,7 @@ import {
   selector: 'app-user-detail',
   templateUrl: './user-detail.component.html',
   styleUrls: ['./user-detail.component.css'],
+  standalone: false,
 })
 export class UserDetailComponent implements OnInit, AfterViewInit {
   user$!: Observable<User | null>;

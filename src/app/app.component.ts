@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
       <router-outlet></router-outlet>
     </main>
   `,
-  styles: []
+  styles: [],
+  standalone: false,
 })
 export class AppComponent {}

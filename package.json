@@ -5,31 +5,29 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "ghpage": "npm run build:page && node ghpage.js",
-    "build:page": "ng build --base-href /retaining-filters-in-ag-grid/",
+    "build:gh-pages": "ng build --base-href /retaining-filters-in-ag-grid/",
     "watch": "ng build --watch --configuration development"
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^17.0.0",
-    "@angular/common": "^17.0.0",
-    "@angular/compiler": "^17.0.0",
-    "@angular/core": "^17.0.0",
-    "@angular/forms": "^17.0.0",
-    "@angular/platform-browser": "^17.0.0",
-    "@angular/platform-browser-dynamic": "^17.0.0",
-    "@angular/router": "^17.0.0",
+    "@angular/animations": "^19.2.6",
+    "@angular/common": "^19.2.6",
+    "@angular/compiler": "^19.2.6",
+    "@angular/core": "^19.2.6",
+    "@angular/forms": "^19.2.6",
+    "@angular/platform-browser": "^19.2.6",
+    "@angular/platform-browser-dynamic": "^19.2.6",
+    "@angular/router": "^19.2.6",
     "@uiowa/spinner": "^13.1.0",
-    "ag-grid-angular": "^31.0.0",
-    "ag-grid-community": "^31.0.0",
+    "ag-grid-angular": "^33.2.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.14.2"
+    "zone.js": "~0.15.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^17.0.5",
-    "@angular/cli": "^17.0.5",
-    "@angular/compiler-cli": "^17.0.0",
-    "typescript": "~5.2.2"
+    "@angular-devkit/build-angular": "^19.2.7",
+    "@angular/cli": "^19.2.7",
+    "@angular/compiler-cli": "^19.2.6",
+    "typescript": "~5.7.2"
   }
 }

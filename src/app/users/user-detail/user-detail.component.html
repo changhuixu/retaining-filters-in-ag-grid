@@ -1,22 +1,20 @@
-<h1>
-  Filters will be retained when you navigate to another page
-</h1>
+<h1>Filters will be retained when you navigate to another page</h1>
 <section>
   <a class="button" routerLink=".." [queryParams]="filtersParams" #btn>
     Back to Users List
   </a>
 
-  <div *ngIf="user$ | async as user; else loading" style="margin-top: 1rem;">
-    <section style="display: flex; align-items: center;">
+  <div *ngIf="user$ | async as user; else loading" style="margin-top: 1rem">
+    <section style="display: flex; align-items: center">
       <img
         [src]="user.picture.large"
         alt="Avatar"
-        style="border-radius: 50%;"
+        style="border-radius: 50%"
         height="128"
         width="128"
       />
-      <div style="margin-left: 1rem;">
-        <p style="font-weight: 700; font-size: 1.5rem;">
+      <div style="margin-left: 1rem">
+        <p style="font-weight: 700; font-size: 1.5rem">
           {{ user.name.title }} {{ user.name.first }} {{ user.name.last }}
         </p>
         <p>{{ user.email }}</p>
@@ -27,7 +25,7 @@
   </div>
 
   <ng-template #loading>
-    <div style="display: flex; width: 100%; justify-content: center;">
+    <div style="display: flex; width: 100%; justify-content: center">
       <uiowa-ring></uiowa-ring>
     </div>
   </ng-template>
