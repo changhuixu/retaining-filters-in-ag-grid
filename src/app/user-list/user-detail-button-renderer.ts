@@ -1,16 +1,13 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 
 @Component({
-    template: `
-    <a [routerLink]="uuid" title="view details">
-      Details
-    </a>
-  `,
-    standalone: false
+  imports: [RouterLink],
+  template: ` <a [routerLink]="uuid" title="view details"> Details </a> `,
+  styles: ``,
 })
-export class UserDetailButtonRendererComponent
-  implements ICellRendererAngularComp {
+export class UserDetailButtonRenderer implements ICellRendererAngularComp {
   uuid = '';
   constructor() {}
 

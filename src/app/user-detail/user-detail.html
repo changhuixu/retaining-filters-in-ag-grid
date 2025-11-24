@@ -1,10 +1,9 @@
 <h1>Filters will be retained when you navigate to another page</h1>
 <section>
-  <a class="button" routerLink=".." [queryParams]="filtersParams" #btn>
-    Back to Users List
-  </a>
+  <a class="button" routerLink=".." [queryParams]="filtersParams" #btn> Back to Users List </a>
 
-  <div *ngIf="user$ | async as user; else loading" style="margin-top: 1rem">
+  @if(user$|async; as user){
+  <div style="margin-top: 1rem">
     <section style="display: flex; align-items: center">
       <img
         [src]="user.picture.large"
@@ -23,10 +22,7 @@
     </section>
     <pre>{{ user.location | json }}</pre>
   </div>
-
-  <ng-template #loading>
-    <div style="display: flex; width: 100%; justify-content: center">
-      <uiowa-ring></uiowa-ring>
-    </div>
-  </ng-template>
+  } @else {
+  <div style="display: flex; width: 100%; justify-content: center; font-size: 2rem">loading...</div>
+  }
 </section>

@@ -1,9 +1,6 @@
 {
-    "typescript.tsdk": "node_modules\\typescript\\lib",
-    "cSpell.words": [
-        "devkit",
-        "ghpage",
-        "uiowa",
-        "userdtos"
-    ]
+  "cSpell.words": ["userdtos"],
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  }
 }

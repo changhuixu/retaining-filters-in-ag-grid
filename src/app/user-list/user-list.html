@@ -1,0 +1,16 @@
+<h1 style="margin-bottom: 0">Filters will be retained when you navigate to another page</h1>
+<div style="display: flex; flex-grow: 1; flex-direction: column">
+  <div class="grid-interaction">
+    <button type="button" (click)="clearAllFilters()">Clear All Filters</button>
+  </div>
+
+  <div style="display: flex; flex-grow: 1">
+    <ag-grid-angular
+      style="width: 100%"
+      class="ag-theme-alpine"
+      [rowData]="rowData$ | async"
+      [gridOptions]="gridOptions"
+      (gridReady)="onGridReady($event)"
+    />
+  </div>
+</div>

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {
-  TextFilterModel,
   DateFilterModel,
-  NumberFilterModel,
   ICombinedSimpleModel,
+  NumberFilterModel,
+  TextFilterModel,
 } from 'ag-grid-community';
 
 interface UsersGridFilters {
@@ -39,9 +39,7 @@ export class UsersGridService {
     this.filters = filters;
   }
 
-  getFiltersFromQueryParams(
-    params: UsersGridFiltersParams
-  ): UsersGridFilters | null {
+  getFiltersFromQueryParams(params: UsersGridFiltersParams): UsersGridFilters | null {
     if (!params || !Object.keys(params).length) {
       return null;
     }
@@ -65,15 +63,11 @@ export class UsersGridService {
       };
     }
     return <UsersGridFiltersParams>{
-      username: encodeURIComponent(
-        JSON.stringify(this.filters.username || null)
-      ),
+      username: encodeURIComponent(JSON.stringify(this.filters.username || null)),
       name: encodeURIComponent(JSON.stringify(this.filters.name || null)),
       dob: encodeURIComponent(JSON.stringify(this.filters.dob || null)),
       gender: encodeURIComponent(JSON.stringify(this.filters.gender || null)),
-      seniority: encodeURIComponent(
-        JSON.stringify(this.filters.seniority || null)
-      ),
+      seniority: encodeURIComponent(JSON.stringify(this.filters.seniority || null)),
     };
   }
 }

@@ -1,27 +1,30 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AgGridAngular } from 'ag-grid-angular';
 import {
+  FilterChangedEvent,
   GridApi,
   GridOptions,
-  FilterChangedEvent,
-  PaginationChangedEvent,
   GridReadyEvent,
+  PaginationChangedEvent,
+  ValueFormatterParams,
 } from 'ag-grid-community';
-import {
-  dateColumnDef,
-  UserDetailButtonRendererComponent,
-  UsersService,
-} from '../../shared';
-import { UsersGridService } from '../services/users-grid.service';
-import { finalize } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { UsersGridService } from '../users-grid.service';
+import { UserDto, UsersService } from '../users.service';
+import { UserDetailButtonRenderer } from './user-detail-button-renderer';
 
 @Component({
-  selector: 'app-users-list',
-  templateUrl: './users-list.component.html',
-  styleUrls: ['./users-list.component.css'],
-  standalone: false,
+  selector: 'app-user-list',
+  imports: [AgGridAngular, AsyncPipe],
+  templateUrl: './user-list.html',
+  styleUrl: './user-list.css',
+  host: {
+    'window:resize': 'onResize()',
+  },
 })
-export class UsersListComponent implements OnInit {
+export class UserList {
   private gridApi!: GridApi;
   gridOptions = <GridOptions>{
     columnDefs: [
@@ -32,7 +35,7 @@ export class UsersListComponent implements OnInit {
         minWidth: 70,
         filter: false,
         suppressHeaderMenuButton: true,
-        cellRenderer: UserDetailButtonRendererComponent,
+        cellRenderer: UserDetailButtonRenderer,
       },
       {
         headerName: 'User Name',
@@ -42,8 +45,7 @@ export class UsersListComponent implements OnInit {
       {
         headerName: 'Display Name',
         colId: 'name',
-        valueGetter: (params: any) =>
-          params.data.first + ' ' + params.data.last,
+        valueGetter: (params: any) => params.data.first + ' ' + params.data.last,
         width: 200,
         minWidth: 160,
       },
@@ -52,7 +54,13 @@ export class UsersListComponent implements OnInit {
         field: 'dob',
         width: 150,
         minWidth: 150,
-        type: 'dateColumn',
+        cellDataType: 'date',
+        valueFormatter: (params: ValueFormatterParams) =>
+          new Date(params.value).toLocaleDateString('en-us', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+          }),
       },
       { headerName: 'Gender', field: 'gender', width: 150, minWidth: 120 },
       {
@@ -78,11 +86,8 @@ export class UsersListComponent implements OnInit {
       floatingFilter: true,
       resizable: true,
     },
-    columnTypes: {
-      dateColumn: dateColumnDef,
-    },
   };
-  rowData: any;
+  rowData$: Observable<UserDto[]>;
   loading = false;
 
   constructor(
@@ -90,16 +95,8 @@ export class UsersListComponent implements OnInit {
     private readonly gridService: UsersGridService,
     private readonly route: ActivatedRoute,
     private readonly router: Router
-  ) {}
-
-  ngOnInit() {
-    this.loading = true;
-    this.svc
-      .getAllUsers()
-      .pipe(finalize(() => (this.loading = false)))
-      .subscribe((x) => {
-        this.rowData = x;
-      });
+  ) {
+    this.rowData$ = this.svc.getAllUsers();
   }
 
   filterChanged(event: FilterChangedEvent) {
@@ -127,17 +124,11 @@ export class UsersListComponent implements OnInit {
     this.gridApi = event.api;
     this.gridApi.autoSizeAllColumns(); // will resize all visible columns
     this.gridApi.sizeColumnsToFit(); // will resize all columns to fit visible.
-    const filters = this.gridService.getFiltersFromQueryParams(
-      this.route.snapshot.queryParams
-    );
+    const filters = this.gridService.getFiltersFromQueryParams(this.route.snapshot.queryParams);
     filters && this.gridApi.setFilterModel(filters);
-    setTimeout(
-      () => this.gridApi.paginationGoToPage(this.gridService.currentPageNumber),
-      100
-    ); // https://github.com/ag-grid/ag-grid/issues/6343
+    setTimeout(() => this.gridApi.paginationGoToPage(this.gridService.currentPageNumber), 100); // https://github.com/ag-grid/ag-grid/issues/6343
   }
 
-  @HostListener('window:resize')
   onResize() {
     this.gridApi?.sizeColumnsToFit();
   }
