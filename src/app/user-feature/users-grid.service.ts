@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import {
+  AllCommunityModule,
   DateFilterModel,
   ICombinedSimpleModel,
+  ModuleRegistry,
   NumberFilterModel,
   TextFilterModel,
 } from 'ag-grid-community';
+ModuleRegistry.registerModules([AllCommunityModule]);
 
 interface UsersGridFilters {
   username?: TextFilterModel | ICombinedSimpleModel<TextFilterModel>;

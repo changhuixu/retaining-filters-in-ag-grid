@@ -1,6 +1,4 @@
 import { Routes } from '@angular/router';
-import { UserDetail } from './user-detail/user-detail';
-import { UserList } from './user-list/user-list';
 
 export const routes: Routes = [
   {
@@ -10,16 +8,7 @@ export const routes: Routes = [
   },
   {
     path: 'users',
-    children: [
-      {
-        path: '',
-        component: UserList,
-      },
-      {
-        path: ':id',
-        component: UserDetail,
-      },
-    ],
+    loadChildren: () => import('./user-feature/user-feature.routes').then((m) => m.USERS_ROUTES),
   },
   {
     path: '**',
